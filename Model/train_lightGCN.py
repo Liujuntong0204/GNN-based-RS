@@ -42,10 +42,10 @@ for epoch in range(epochs):
     epoch_loss = 0
     loop = tqdm(loader, total=len(loader), desc=f"Epoch {epoch + 1}/{epochs}")
     for batch in loop :
-        batch = batch.to(device)  # 这句话非常重要，确保数据在 GPU
+        batch = batch.to(device)  
         src, dst = batch.edge_index
         
-        emb = model(None, batch.edge_index)  # 前向传播时输入 GPU数据
+        emb = model(None, batch.edge_index) 
 
         src_indices = src.to(torch.long)
         dst_indices = dst.to(torch.long)

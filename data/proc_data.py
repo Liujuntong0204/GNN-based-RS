@@ -6,11 +6,11 @@ train_file = "/kaggle/input/movielens-100k-dataset/ml-100k/ua.base"
 valitation_file = "/kaggle/input/movielens-100k-dataset/ml-100k/ua.test"
 item_file = "/kaggle/input/movielens-100k-dataset/ml-100k/u.item"
 
-# 读取数据（u.data是\t分隔）
+# 读取数据 \t分隔
 train_ratings = pd.read_csv(train_file, sep='\t', header=None, names=['userId', 'itemId', 'score', 'time'])
 val_ratings = pd.read_csv(valitation_file, sep='\t', header=None, names=['userId', 'itemId', 'score', 'time'])
 
-# 读取电影数据（u.item是|分隔）
+# 读取电影数据  |分隔
 item_columns = ['itemId', 'Title', 'Release Date', 'Video Release Date', 'IMDb URL'] + \
                ['unknown', 'Action', 'Adventure', 'Animation', "Children's",
                 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy',
