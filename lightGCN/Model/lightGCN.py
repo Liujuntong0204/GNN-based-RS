@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn.conv import LGConv
-
+import torch
 
 class LightGCN(nn.Module):
     def __init__(self, num_nodes, embedding_dim = 64, num_layers = 2):
@@ -24,6 +24,10 @@ class LightGCN(nn.Module):
 
     def get_embeddings(self):
         return self.embedding.weight.detach()
+    def get_final_embeddings(self, edge_index):
+        with torch.no_grad():
+            x = self.forward(edge_index=edge_index)
+        return x
 
 def bpr_loss(emb, pos_indices, neg_indices):
     i, j = pos_indices

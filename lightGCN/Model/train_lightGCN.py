@@ -73,11 +73,10 @@ for epoch in range(epochs):
             'optimizer_state_dict': opt.state_dict(), 
             'loss': epoch_loss
         }, save_path)
-        print(f"Model saved to {save_path}")
+        print(f"model saved to {save_path}")
 
 model.eval()
 with torch.no_grad():
-    final_embeddings = model.get_embeddings()
-    final_embeddings = final_embeddings.to(device)
-    torch.save(final_embeddings, "item_embeddings.pt")
-    print("Item embeddings saved.")
+    final_embeddings = model.get_final_embeddings(edge_index.to(device))
+    torch.save(final_embeddings, "item_action_embeddings.pt")
+    print("item_action_embeddings saved.")
