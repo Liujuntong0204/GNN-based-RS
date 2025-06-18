@@ -94,8 +94,9 @@ for epoch in range(epochs):
 
         loss_cat = bpr_loss(emb, (src_c, dst_c), (src_c, neg_dst_c))
 
+        # loss = model.alpha[0]*loss_title + model.alpha[1]*loss_year + model.alpha[2]*loss_cat
         weights = F.softmax(model.alpha, dim=0)
-        weights = torch.clamp(weights, min=1e-4)  
+        weights = torch.clamp(weights, min=1e-4)  # 防止其中一个 loss 被消掉
         weights = weights / weights.sum() 
         loss = weights[0]*loss_title + weights[1]*loss_year + weights[2]*loss_cat
 
@@ -108,6 +109,15 @@ for epoch in range(epochs):
 
     epoch_loss /= len(loader_title)
     print(f"Epoch {epoch+1}, Loss: {epoch_loss:.4f}")
+    if (epoch + 1) % 5 == 0:
+        save_path = f"model_epoch_{epoch+1}.pt"
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': opt.state_dict(),
+            'loss': epoch_loss,
+        }, save_path)
+        print(f"model saved to {save_path}")
 
 # 保存属性嵌入
 model.eval()
