@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from tqdm import tqdm
 import random
 import itertools
-from item_act_emb.get_grapgh import get_count
+from ..item_act_emb.get_grapgh import get_count
 class UserAttentionPooling(nn.Module):
     def __init__(self, emb_dim):
         super().__init__()
