@@ -46,12 +46,12 @@ for epoch in range(epochs):
         emb = model(edge_index=batch.edge_index, edge_weight=batch.edge_weight) 
 
         src, dst = batch.edge_index
-        src = src.to(torch.long)
-        dst = dst.to(torch.long)
+        src_global = batch.n_id[src] # 这里要获取全局的索引
+        dst_global = batch.n_id[dst]
 
-        neg = sample_negatives(src.cpu(), item_count, existing).to(device)
+        neg_global = sample_negatives(src_global.cpu(), item_count, existing)
 
-        loss = bpr_loss(emb, src, dst, neg, l2_lambda=l2_lambda)
+        loss = bpr_loss(emb, src_global.to(device), dst_global.to(device), neg_global.to(device), l2_lambda=l2_lambda)
         
         opt.zero_grad()
         loss.backward()
