@@ -1,5 +1,5 @@
 推荐结果指标：
-Recall@10   = 0.0428
-Precision@10   = 0.1093
-NDCG@10     = 0.1171
-HitRate@10  = 0.4820
+ Recall@10 = 0.0471 
+ Precision@10 = 0.1151 
+ NDCG@10 = 0.1241 
+ HitRate@10 = 0.5185 
